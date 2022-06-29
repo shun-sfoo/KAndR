@@ -1,0 +1,7 @@
+[
+{
+  "directory": "/home/liuyang/WorkSpaces/KAndR/build/linux-debug",
+  "command": "/usr/bin/cc   -g -o CMakeFiles/project.dir/main.c.o -c /home/liuyang/WorkSpaces/KAndR/main.c",
+  "file": "/home/liuyang/WorkSpaces/KAndR/main.c"
+}
+]
