@@ -3,6 +3,8 @@
 #define LOWER 0
 #define UPPER 300
 #define STEP 20
+#define IN 1
+#define OUT 0
 
 void celsius();
 void fahrenheit();
@@ -10,13 +12,22 @@ void revert_celsius();
 void input();
 void judge();
 void count_char_v1();
+void count_unvisible();
+void output();
+void output_unvisible();
+void print_line();
 
 int main(int argc, char* argv[]) {
   celsius();
   fahrenheit();
   revert_celsius();
+  /* output(); */
   /* input(); */
   /* judge(); */
+  /* count_unvisible(); */
+  /* count_char_v1(); */
+  /* output_unvisible(); */
+  print_line();
 }
 
 void celsius() {
@@ -55,8 +66,12 @@ void revert_celsius() {
 }
 
 void input() {
-  int c;
-  while ((c = getchar()) != EOF) putchar(c);
+  int c, count = 0;
+  while ((c = getchar()) != EOF) {
+    putchar(c);
+    ++count;
+  }
+  printf("count %d", count);
 }
 
 void judge() {
@@ -80,3 +95,120 @@ void count_char_v2() {
 
   printf("%.0f", nc);
 }
+
+void count_line() {
+  int nl, c;
+  nl = 0;
+  while ((c = getchar()) != EOF)
+    if (c == '\n') ++nl;
+  printf("%d\n", nl);
+}
+
+void count_unvisible() {
+  int ns, nt, nl, c;
+  ns = nt = nl = 0;
+
+  while ((c = getchar()) != EOF) {
+    if (c == ' ') {
+      ++ns;
+    } else if (c == '\t') {
+      ++nt;
+    } else if (c == '\n') {
+      ++nl;
+    }
+  }
+
+  printf("space %d, tab %d, line %d\n", ns, nt, nl);
+}
+
+void output() {
+  /* 1.9 */
+  int c;
+
+  while ((c = getchar()) != EOF) {
+    if (c == ' ') {
+      while ((c = getchar()) == ' ')
+        ;
+      putchar(' ');
+      if (c == EOF) break;
+    }
+    putchar(c);
+  }
+}
+
+void output_unvisible() {
+  int c;
+  while ((c = getchar()) != EOF) {
+    if (c == '\t') {
+      putchar('\\');
+      putchar('t');
+    } else if (c == ' ') {
+      putchar('\\');
+      putchar('b');
+
+    } else if (c == '\\') {
+      putchar('\\');
+      putchar('\\');
+
+    } else
+      putchar(c);
+  }
+}
+
+void count_word() {
+  int c, nl, nw, nc, state;
+
+  state = OUT;
+  nl = nw = nc = 0;
+
+  while ((c = getchar()) != EOF) {
+    ++nc;
+    if (c == '\n') ++nl;
+
+    if (c == ' ' || c == '\t' || c == '\n')
+      state = OUT;
+    else if (state == OUT) {
+      state = IN;
+      ++nw;
+    }
+  }
+
+  printf("%d %d %d\n", nl, nw, nc);
+}
+
+void print_line() {
+  int c, state;
+  state = OUT;
+
+  while ((c = getchar()) != EOF) {
+    if (c == '\n' || c == '\t' || c == ' ') {
+      printf("\n");
+    } else {
+      putchar(c);
+    }
+  }
+}
+
+void count_number() {
+  int c, i, nwhite, nother;
+  int ndigit[10];
+
+  nwhite = nother = 0;
+  for (i = 0; i < 10; ++i) ndigit[i] = 0;
+
+  while ((c = getchar()) != EOF) {
+    if (c >= '0' || c <= '9')
+      ++ndigit[c - '0'];
+    else if (c == ' ' || c == '\n' || c == '\t')
+      ++nwhite;
+    else
+      ++nother;
+  }
+
+  printf("digits = ");
+  for (i = 0; i < 10; ++i) printf(" %d", ndigit[i]);
+
+  printf(",white space = %d, other = %d\n", nwhite, nother);
+}
+
+void print_histogram_vertical() {}
