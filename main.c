@@ -17,6 +17,18 @@ void output();
 void output_unvisible();
 void print_line();
 
+void print_histogram_vertical();
+
+void print_char_histogram();
+
+int power(int m, int n);
+
+int getline1(char[], int);
+void copy(char[], char[]);
+
+void squeeze(char* s1, char* s2);
+int any(char* s1, char* s2);
+
 int main(int argc, char* argv[]) {
   celsius();
   fahrenheit();
@@ -27,7 +39,20 @@ int main(int argc, char* argv[]) {
   /* count_unvisible(); */
   /* count_char_v1(); */
   /* output_unvisible(); */
-  print_line();
+  /* print_line(); */
+  /* print_histogram_vertical(); */
+  /* print_char_histogram(); */
+  int res = power(2, 5);
+  printf("%d\n", res);
+
+  char s1[] = "hello";
+  char s2[] = "world";
+
+  /* squeeze(s1, s2); */
+
+  int r = any(s1, s2);
+
+  printf("%d", r);
 }
 
 void celsius() {
@@ -211,4 +236,89 @@ void count_number() {
   printf(",white space = %d, other = %d\n", nwhite, nother);
 }
 
-void print_histogram_vertical() {}
+void print_histogram_vertical() {
+  int c;
+
+  while ((c = getchar()) != EOF) {
+    if (c != '\n' && c != ' ' && c != '\t') {
+      putchar('*');
+    } else {
+      printf("\n");
+    }
+  }
+}
+
+void print_char_histogram() {
+  int i, c, n;
+  int cdigit[26];
+
+  for (i = 0; i < 26; ++i) { cdigit[i] = 0; }
+
+  while ((c = getchar()) != EOF) {
+    if (c >= 'a' && c <= 'z') { ++cdigit[c - 'a']; }
+  }
+
+  for (i = 0; i < 26; ++i) {
+    putchar(i + 'a');
+    putchar(':');
+    putchar(' ');
+    for (n = 0; n < cdigit[i]; n++) { putchar('*'); }
+    putchar('\n');
+  }
+}
+
+int power(int base, int n) {
+  int p;
+
+  for (p = 1; n > 0; --n) { p = base * p; }
+  return p;
+}
+
+int getline1(char s[], int lim) {
+  int i, c;
+  for (i = 0; i < lim - 1 && (c = getchar()) != EOF && c != '\n'; ++i) s[i] = c;
+  if (c == '\n') {
+    s[i] = c;
+    ++i;
+  }
+  s[i] = '\0';
+  return i;
+}
+
+void copy(char from[], char to[]) {
+  int i;
+  for (i = 0; (from[i] = to[i]) != '\0'; ++i)
+    ;
+}
+
+void squeeze(char s1[], char s2[]) {
+  char i, j;
+
+  for (i = 0; s2[i] != '\0'; i++) {
+    for (j = 0; s1[j] != '\0'; j++) {
+      if (s1[j] == s2[i]) { s1[j] = '\0'; }
+    }
+  }
+}
+
+int any(char s1[], char s2[]) {
+  char i, j;
+  for (i = 0; s1[i] != '\0'; ++i) {
+    for (j = 0; s2[j] != '\0'; ++j) {
+      if (s2[j] == s1[i]) { return j; }
+    }
+  }
+  return -1;
+}
+
+unsigned setbits(unsigned x, int p, int n, unsigned y) {
+  return x | ((y & ~(~0 << n)) << (p + 1 - n));
+}
+
+int binsearch(int x, int v[], int n) {
+  int low, high, mid;
+
+  low = 0;
+  high = n - 1;
+  while (low <= high) { mid = low + (high - low) / 2; }
+}
