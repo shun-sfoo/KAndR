@@ -314,11 +314,3 @@ int any(char s1[], char s2[]) {
 unsigned setbits(unsigned x, int p, int n, unsigned y) {
   return x | ((y & ~(~0 << n)) << (p + 1 - n));
 }
-
-int binsearch(int x, int v[], int n) {
-  int low, high, mid;
-
-  low = 0;
-  high = n - 1;
-  while (low <= high) { mid = low + (high - low) / 2; }
-}
