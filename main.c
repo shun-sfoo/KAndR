@@ -314,3 +314,21 @@ int any(char s1[], char s2[]) {
 unsigned setbits(unsigned x, int p, int n, unsigned y) {
   return x | ((y & ~(~0 << n)) << (p + 1 - n));
 }
+
+void qsort(int v[], int left, int right) {
+  int a[100];
+
+  int i, last;
+
+  void swap(int v[], int i, int j);
+
+  last = left;
+  for (i = left + 1; last <= right; i++) {
+    if (v[i] < v[left]) swap(v, ++last, i);
+  }
+
+  swap(v, left, last);
+
+  qsort(v, left, last - 1);
+  qsort(v, last + 1, right);
+}
